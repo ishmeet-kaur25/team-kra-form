@@ -101,6 +101,7 @@
 
   input[type="text"],
   input[type="number"],
+  select,
   textarea {
     width: 100%;
     background: #fbfcfe;
@@ -114,11 +115,15 @@
     transition: border-color 0.15s, box-shadow 0.15s;
   }
 
+  select {
+    cursor: pointer;
+  }
+
   input::placeholder, textarea::placeholder {
     color: #a3afc0;
   }
 
-  input:focus, textarea:focus {
+  input:focus, select:focus, textarea:focus {
     border-color: var(--cyan);
     box-shadow: 0 0 0 3px rgba(10,143,168,0.12);
   }
@@ -161,6 +166,66 @@
     text-transform: uppercase;
     margin-bottom: 10px;
     opacity: 0.8;
+  }
+
+  .table-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: var(--magenta);
+    text-transform: uppercase;
+    margin: 24px 0 10px;
+  }
+
+  .kpi-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+  }
+  .kpi-table th, .kpi-table td {
+    border: 1px solid var(--border);
+    padding: 0;
+  }
+  .kpi-table th {
+    background: var(--bg-panel-2);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    text-align: left;
+    padding: 8px 10px;
+  }
+  .kpi-table td.row-label {
+    background: var(--bg-panel-2);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text);
+    padding: 8px 10px;
+    white-space: nowrap;
+    width: 90px;
+  }
+  .kpi-table td.input-cell {
+    padding: 0;
+  }
+  .kpi-table td.input-cell input,
+  .kpi-table td.input-cell textarea {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    min-height: 38px;
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  .kpi-table td.input-cell textarea {
+    resize: vertical;
+  }
+  .kpi-table td.input-cell input:focus,
+  .kpi-table td.input-cell textarea:focus {
+    box-shadow: inset 0 0 0 2px var(--cyan);
   }
 
   .submit-btn {
@@ -225,7 +290,20 @@
     <div class="card">
       <div class="field">
         <label for="teamName">Team Name</label>
-        <input type="text" id="teamName" placeholder="e.g. Alchemy PMS Squad" required>
+        <select id="teamName" required>
+          <option value="" disabled selected>Select team...</option>
+          <option value="HR">HR</option>
+          <option value="Finance">Finance</option>
+          <option value="Managed Services">Managed Services</option>
+          <option value="Japan">Japan</option>
+          <option value="US Staffing">US Staffing</option>
+          <option value="Professional Services">Professional Services</option>
+          <option value="Captive">Captive</option>
+          <option value="Perm">Perm</option>
+          <option value="Sales">Sales</option>
+          <option value="Corporate Support">Corporate Support</option>
+          <option value="Vendor Management">Vendor Management</option>
+        </select>
       </div>
 
       <div class="field-row">
@@ -239,16 +317,63 @@
         </div>
       </div>
 
-      <div class="kra-group">
-        <div class="kra-group-title">Quarterly KRA</div>
-        <div class="field">
-          <textarea id="quarterlyKra" placeholder="Quarterly KRA..."></textarea>
-        </div>
-        <div class="field">
-          <label>Comment</label>
-          <textarea id="quarterlyComment" placeholder="Comment..."></textarea>
-        </div>
-      </div>
+      <div class="table-title">KPI Tracking</div>
+      <table class="kpi-table">
+        <tr>
+          <th>Quarter</th>
+          <th>Accounts / Tasks / KPI</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class="row-label">Q1</td>
+          <td class="input-cell"><textarea id="kpiQ1" placeholder="Q1 KPI..."></textarea></td>
+          <td class="input-cell"><textarea id="kpiQ1Comment" placeholder="Comment..."></textarea></td>
+        </tr>
+        <tr>
+          <td class="row-label">Q2</td>
+          <td class="input-cell"><textarea id="kpiQ2" placeholder="Q2 KPI..."></textarea></td>
+          <td class="input-cell"><textarea id="kpiQ2Comment" placeholder="Comment..."></textarea></td>
+        </tr>
+        <tr>
+          <td class="row-label">Q3</td>
+          <td class="input-cell"><textarea id="kpiQ3" placeholder="Q3 KPI..."></textarea></td>
+          <td class="input-cell"><textarea id="kpiQ3Comment" placeholder="Comment..."></textarea></td>
+        </tr>
+        <tr>
+          <td class="row-label">Q4</td>
+          <td class="input-cell"><textarea id="kpiQ4" placeholder="Q4 KPI..."></textarea></td>
+          <td class="input-cell"><textarea id="kpiQ4Comment" placeholder="Comment..."></textarea></td>
+        </tr>
+      </table>
+
+      <div class="table-title">Commitment &amp; Development</div>
+      <table class="kpi-table">
+        <tr>
+          <th>Quarter</th>
+          <th>Initiative</th>
+          <th>Comment</th>
+        </tr>
+        <tr>
+          <td class="row-label">Q1</td>
+          <td class="input-cell"><textarea id="initQ1" placeholder="Q1 initiative..."></textarea></td>
+          <td class="input-cell"><textarea id="initQ1Comment" placeholder="Comment..."></textarea></td>
+        </tr>
+        <tr>
+          <td class="row-label">Q2</td>
+          <td class="input-cell"><textarea id="initQ2" placeholder="Q2 initiative..."></textarea></td>
+          <td class="input-cell"><textarea id="initQ2Comment" placeholder="Comment..."></textarea></td>
+        </tr>
+        <tr>
+          <td class="row-label">Q3</td>
+          <td class="input-cell"><textarea id="initQ3" placeholder="Q3 initiative..."></textarea></td>
+          <td class="input-cell"><textarea id="initQ3Comment" placeholder="Comment..."></textarea></td>
+        </tr>
+        <tr>
+          <td class="row-label">Q4</td>
+          <td class="input-cell"><textarea id="initQ4" placeholder="Q4 initiative..."></textarea></td>
+          <td class="input-cell"><textarea id="initQ4Comment" placeholder="Comment..."></textarea></td>
+        </tr>
+      </table>
     </div>
 
     <button type="submit" class="submit-btn">Submit</button>
@@ -267,8 +392,22 @@
       teamName: document.getElementById('teamName').value,
       name: document.getElementById('empName').value,
       designation: document.getElementById('designation').value,
-      quarterlyKra: document.getElementById('quarterlyKra').value,
-      quarterlyComment: document.getElementById('quarterlyComment').value
+      kpiQ1: document.getElementById('kpiQ1').value,
+      kpiQ1Comment: document.getElementById('kpiQ1Comment').value,
+      kpiQ2: document.getElementById('kpiQ2').value,
+      kpiQ2Comment: document.getElementById('kpiQ2Comment').value,
+      kpiQ3: document.getElementById('kpiQ3').value,
+      kpiQ3Comment: document.getElementById('kpiQ3Comment').value,
+      kpiQ4: document.getElementById('kpiQ4').value,
+      kpiQ4Comment: document.getElementById('kpiQ4Comment').value,
+      initQ1: document.getElementById('initQ1').value,
+      initQ1Comment: document.getElementById('initQ1Comment').value,
+      initQ2: document.getElementById('initQ2').value,
+      initQ2Comment: document.getElementById('initQ2Comment').value,
+      initQ3: document.getElementById('initQ3').value,
+      initQ3Comment: document.getElementById('initQ3Comment').value,
+      initQ4: document.getElementById('initQ4').value,
+      initQ4Comment: document.getElementById('initQ4Comment').value
     };
 
     const banner = document.getElementById('status-banner');
