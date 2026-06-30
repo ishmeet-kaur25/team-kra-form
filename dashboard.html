@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KRA Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6fa;
+    --bg-panel: #ffffff;
+    --bg-panel-2: #eef1f7;
+    --cyan: #0a8fa8;
+    --cyan-dim: #4fb8cc;
+    --cyan-glow: rgba(10, 143, 168, 0.18);
+    --magenta: #d6206e;
+    --text: #1c2733;
+    --text-dim: #67768a;
+    --border: #d8dee8;
+    --danger: #d6294a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      linear-gradient(rgba(10,143,168,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10,143,168,0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--text);
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    padding: 32px 16px 80px;
+  }
+
+  .wrap {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 0.04em;
+    margin: 0 0 6px;
+    color: var(--cyan);
+  }
+
+  .sub {
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  .card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(20,30,50,0.06);
+  }
+
+  label {
+    display: block;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  select {
+    width: 100%;
+    background: #fbfcfe;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    padding: 10px 12px;
+    outline: none;
+    cursor: pointer;
+  }
+  select:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(10,143,168,0.12);
+  }
+
+  .loading, .empty-msg {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    padding: 24px 0;
+  }
+
+  .emp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .emp-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .emp-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg-panel-2);
+  }
+
+  .emp-head-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .emp-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .emp-desig {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .emp-arrow {
+    color: var(--cyan);
+    font-size: 14px;
+    transition: transform 0.15s;
+  }
+  .emp-arrow.open { transform: rotate(180deg); }
+
+  .emp-body {
+    padding: 18px;
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+  .emp-body.open { display: block; }
+
+  .emp-meta {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+
+  .table-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--magenta);
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+
+  .kpi-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 18px;
+    font-size: 13px;
+  }
+  .kpi-table:last-child { margin-bottom: 0; }
+  .kpi-table th, .kpi-table td {
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .kpi-table th {
+    background: var(--bg-panel-2);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--cyan);
+    text-transform: uppercase;
+  }
+  .kpi-table td.row-label {
+    background: var(--bg-panel-2);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    width: 60px;
+  }
+  .kpi-table td.empty-cell {
+    color: #a3afc0;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>KRA DASHBOARD</h1>
+    <div class="sub">Select a team to view submitted KRAs</div>
+  </header>
+
+  <div class="card">
+    <label for="teamFilter">Team Name</label>
+    <select id="teamFilter">
+      <option value="" disabled selected>Select team...</option>
+      <option value="HR">HR</option>
+      <option value="Finance">Finance</option>
+      <option value="Managed Services">Managed Services</option>
+      <option value="Japan">Japan</option>
+      <option value="US Staffing">US Staffing</option>
+      <option value="Professional Services">Professional Services</option>
+      <option value="Captive">Captive</option>
+      <option value="Perm">Perm</option>
+      <option value="Sales">Sales</option>
+      <option value="Corporate Support">Corporate Support</option>
+      <option value="Vendor Management">Vendor Management</option>
+    </select>
+  </div>
+
+  <div id="results"></div>
+</div>
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxaPD4ck4GSKtJzndAdxFRfWDz0uisUcwn9GoPxJgphn0y8AjCOoYebx3OJgn17ddRK/exec';
+
+  let allData = [];
+  let dataLoaded = false;
+
+  const resultsEl = document.getElementById('results');
+  const teamFilter = document.getElementById('teamFilter');
+
+  function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function cellOrDash(val) {
+    const v = (val || '').toString().trim();
+    return v ? escapeHtml(v) : '<span class="empty-cell">—</span>';
+  }
+
+  function loadData() {
+    resultsEl.innerHTML = '<div class="loading">Loading data...</div>';
+    fetch(SCRIPT_URL)
+      .then(res => res.json())
+      .then(result => {
+        if (result.status === 'success') {
+          allData = result.data || [];
+          dataLoaded = true;
+          renderForSelectedTeam();
+        } else {
+          resultsEl.innerHTML = '<div class="empty-msg">Could not load data: ' + escapeHtml(result.message || 'Unknown error') + '</div>';
+        }
+      })
+      .catch(err => {
+        resultsEl.innerHTML = '<div class="empty-msg">Could not connect to the Sheet. Please check your internet connection.</div>';
+        console.error(err);
+      });
+  }
+
+  function renderForSelectedTeam() {
+    const team = teamFilter.value;
+    if (!team) {
+      resultsEl.innerHTML = '';
+      return;
+    }
+    if (!dataLoaded) {
+      resultsEl.innerHTML = '<div class="loading">Loading data...</div>';
+      return;
+    }
+
+    const teamEntries = allData.filter(row => (row.teamName || '').trim() === team);
+
+    if (teamEntries.length === 0) {
+      resultsEl.innerHTML = '<div class="empty-msg">No submissions yet for this team.</div>';
+      return;
+    }
+
+    const list = document.createElement('div');
+    list.className = 'emp-list';
+
+    teamEntries.forEach((row, idx) => {
+      const empCard = document.createElement('div');
+      empCard.className = 'emp-card';
+
+      empCard.innerHTML = `
+        <div class="emp-head" data-toggle="${idx}">
+          <div class="emp-head-left">
+            <div class="emp-name">${escapeHtml(row.name || 'Unnamed')}</div>
+            <div class="emp-desig">${escapeHtml(row.designation || '')}</div>
+          </div>
+          <div class="emp-arrow" data-arrow="${idx}">&#9660;</div>
+        </div>
+        <div class="emp-body" data-body="${idx}">
+          <div class="emp-meta">Submitted: ${escapeHtml(row.timestamp || '')}</div>
+
+          <div class="table-title">KPI Tracking</div>
+          <table class="kpi-table">
+            <tr><th>Quarter</th><th>Accounts / Tasks / KPI</th><th>Comment</th></tr>
+            <tr><td class="row-label">Q1</td><td>${cellOrDash(row.kpiQ1)}</td><td>${cellOrDash(row.kpiQ1Comment)}</td></tr>
+            <tr><td class="row-label">Q2</td><td>${cellOrDash(row.kpiQ2)}</td><td>${cellOrDash(row.kpiQ2Comment)}</td></tr>
+            <tr><td class="row-label">Q3</td><td>${cellOrDash(row.kpiQ3)}</td><td>${cellOrDash(row.kpiQ3Comment)}</td></tr>
+            <tr><td class="row-label">Q4</td><td>${cellOrDash(row.kpiQ4)}</td><td>${cellOrDash(row.kpiQ4Comment)}</td></tr>
+          </table>
+
+          <div class="table-title">Commitment &amp; Development</div>
+          <table class="kpi-table">
+            <tr><th>Quarter</th><th>Initiative</th><th>Comment</th></tr>
+            <tr><td class="row-label">Q1</td><td>${cellOrDash(row.initQ1)}</td><td>${cellOrDash(row.initQ1Comment)}</td></tr>
+            <tr><td class="row-label">Q2</td><td>${cellOrDash(row.initQ2)}</td><td>${cellOrDash(row.initQ2Comment)}</td></tr>
+            <tr><td class="row-label">Q3</td><td>${cellOrDash(row.initQ3)}</td><td>${cellOrDash(row.initQ3Comment)}</td></tr>
+            <tr><td class="row-label">Q4</td><td>${cellOrDash(row.initQ4)}</td><td>${cellOrDash(row.initQ4Comment)}</td></tr>
+          </table>
+        </div>
+      `;
+
+      list.appendChild(empCard);
+
+      const head = empCard.querySelector(`[data-toggle="${idx}"]`);
+      const body = empCard.querySelector(`[data-body="${idx}"]`);
+      const arrow = empCard.querySelector(`[data-arrow="${idx}"]`);
+      head.addEventListener('click', () => {
+        body.classList.toggle('open');
+        arrow.classList.toggle('open');
+      });
+    });
+
+    resultsEl.innerHTML = '';
+    resultsEl.appendChild(list);
+  }
+
+  teamFilter.addEventListener('change', renderForSelectedTeam);
+
+  loadData();
+</script>
+
+</body>
+</html>
