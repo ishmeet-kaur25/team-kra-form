@@ -146,104 +146,11 @@
     .field-row { flex-direction: column; gap: 16px; }
   }
 
-  /* Designation block */
-  .desig-block {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    margin-bottom: 16px;
-    overflow: hidden;
-  }
-
-  .desig-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 18px;
-    cursor: pointer;
-    user-select: none;
-    background: var(--bg-panel-2);
-  }
-
-  .desig-head-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
-  }
-
-  .desig-tag {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--magenta);
-    background: rgba(214,32,110,0.08);
-    border: 1px solid rgba(214,32,110,0.25);
-    padding: 3px 8px;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-
-  .desig-name-display {
-    color: var(--text-dim);
-    font-size: 13px;
-  }
-
-  .desig-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .toggle-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--cyan);
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-  }
-  .toggle-btn:hover { background: rgba(10,143,168,0.08); }
-
-  .remove-btn {
-    background: none;
-    border: 1px solid rgba(214,41,74,0.35);
-    color: var(--danger);
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-  }
-  .remove-btn:hover { background: rgba(214,41,74,0.08); }
-
-  .desig-body {
-    padding: 20px 18px;
-    border-top: 1px solid var(--border);
-  }
-
-  .desig-body.collapsed {
-    display: none;
-  }
-
   .kra-group {
     border-left: 2px solid var(--cyan-dim);
     padding-left: 14px;
-    margin-bottom: 18px;
+    margin-bottom: 0;
   }
-  .kra-group:last-child { margin-bottom: 0; }
 
   .kra-group-title {
     font-family: 'Rajdhani', sans-serif;
@@ -254,54 +161,6 @@
     text-transform: uppercase;
     margin-bottom: 10px;
     opacity: 0.8;
-  }
-
-  /* Add button */
-  .add-btn {
-    width: 100%;
-    background: transparent;
-    border: 1px dashed var(--cyan-dim);
-    color: var(--cyan);
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.06em;
-    padding: 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.15s;
-    margin-bottom: 28px;
-  }
-  .add-btn:hover {
-    background: rgba(10,143,168,0.06);
-    border-color: var(--cyan);
-  }
-  .add-btn .plus {
-    font-size: 18px;
-    line-height: 1;
-  }
-
-  .section-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.08em;
-    color: var(--magenta);
-    text-transform: uppercase;
-    margin: 32px 0 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--border), transparent);
   }
 
   .submit-btn {
@@ -348,8 +207,6 @@
 
   @media (max-width: 480px) {
     h1 { font-size: 24px; }
-    .desig-head { padding: 12px 14px; }
-    .desig-body { padding: 16px 14px; }
   }
 </style>
 </head>
@@ -359,7 +216,7 @@
   <header>
     <div class="eyebrow">// PERFORMANCE TRACKING</div>
     <h1>TEAM KRA SUBMISSION</h1>
-    <div class="sub">Fill in team details, then add each designation with its KRAs.</div>
+    <div class="sub">Fill in your team and designation details below.</div>
   </header>
 
   <div id="status-banner"></div>
@@ -370,138 +227,36 @@
         <label for="teamName">Team Name</label>
         <input type="text" id="teamName" placeholder="e.g. Alchemy PMS Squad" required>
       </div>
-      <div class="field">
-        <label for="teamSize">No. of People in Team</label>
-        <input type="number" id="teamSize" min="1" placeholder="e.g. 6" required>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="empName">Name</label>
+          <input type="text" id="empName" placeholder="e.g. Priya Sharma" required>
+        </div>
+        <div class="field">
+          <label for="designation">Designation</label>
+          <input type="text" id="designation" placeholder="e.g. Delivery Manager" required>
+        </div>
       </div>
-    </div>
 
-    <div class="section-title">Designations</div>
-    <div id="desig-container"></div>
-
-    <button type="button" class="add-btn" id="add-desig-btn">
-      <span class="plus">+</span> Add Designation
-    </button>
-
-    <div class="section-title">Full Team KRA</div>
-    <div class="card">
-      <div class="field">
-        <label for="fullTeamKra">Full Team KRA</label>
-        <textarea id="fullTeamKra" placeholder="Describe the overall team KRA..."></textarea>
-      </div>
-      <div class="field">
-        <label for="fullTeamComment">Comment</label>
-        <textarea id="fullTeamComment" placeholder="Any additional comment..."></textarea>
+      <div class="kra-group">
+        <div class="kra-group-title">Quarterly KRA</div>
+        <div class="field">
+          <textarea id="quarterlyKra" placeholder="Quarterly KRA..."></textarea>
+        </div>
+        <div class="field">
+          <label>Comment</label>
+          <textarea id="quarterlyComment" placeholder="Comment..."></textarea>
+        </div>
       </div>
     </div>
 
     <button type="submit" class="submit-btn">Submit</button>
-    <div class="hint">Click "Add Designation" to add as many roles as needed — each opens with its own 1-Month, Quarterly, and Yearly KRA fields.</div>
+    <div class="hint">Fill in your details and submit. You can submit again for another entry anytime.</div>
   </form>
 </div>
 
 <script>
-  let desigCount = 0;
-  const container = document.getElementById('desig-container');
-
-  function addDesignationBlock() {
-    desigCount += 1;
-    const id = desigCount;
-
-    const block = document.createElement('div');
-    block.className = 'desig-block';
-    block.dataset.id = id;
-    block.innerHTML = `
-      <div class="desig-head" data-toggle="${id}">
-        <div class="desig-head-left">
-          <span class="desig-tag">ROLE ${id}</span>
-          <span class="desig-name-display" data-display="${id}">New designation</span>
-        </div>
-        <div class="desig-controls">
-          <button type="button" class="toggle-btn" data-toggle-btn="${id}">&#9660;</button>
-          <button type="button" class="remove-btn" data-remove="${id}">&#10005;</button>
-        </div>
-      </div>
-      <div class="desig-body" data-body="${id}">
-        <div class="field-row">
-          <div class="field">
-            <label>Name</label>
-            <input type="text" placeholder="e.g. Priya Sharma" data-name-input="${id}">
-          </div>
-          <div class="field">
-            <label>Designation</label>
-            <input type="text" placeholder="e.g. Delivery Manager" data-desig-input="${id}">
-          </div>
-        </div>
-
-        <div class="kra-group">
-          <div class="kra-group-title">One Month KRA</div>
-          <div class="field">
-            <textarea placeholder="One month KRA..."></textarea>
-          </div>
-          <div class="field">
-            <label>Comment</label>
-            <textarea placeholder="Comment..."></textarea>
-          </div>
-        </div>
-
-        <div class="kra-group">
-          <div class="kra-group-title">Quarterly KRA</div>
-          <div class="field">
-            <textarea placeholder="Quarterly KRA..."></textarea>
-          </div>
-          <div class="field">
-            <label>Comment</label>
-            <textarea placeholder="Comment..."></textarea>
-          </div>
-        </div>
-
-        <div class="kra-group">
-          <div class="kra-group-title">One Year KRA</div>
-          <div class="field">
-            <textarea placeholder="One year KRA..."></textarea>
-          </div>
-          <div class="field">
-            <label>Comment</label>
-            <textarea placeholder="Comment..."></textarea>
-          </div>
-        </div>
-      </div>
-    `;
-    container.appendChild(block);
-
-    // Wire up toggle (collapse/expand)
-    const head = block.querySelector(`[data-toggle="${id}"]`);
-    const toggleBtn = block.querySelector(`[data-toggle-btn="${id}"]`);
-    const body = block.querySelector(`[data-body="${id}"]`);
-
-    function toggle() {
-      const collapsed = body.classList.toggle('collapsed');
-      toggleBtn.innerHTML = collapsed ? '&#9650;' : '&#9660;';
-    }
-    head.addEventListener('click', (e) => {
-      if (e.target.closest('[data-remove]')) return;
-      toggle();
-    });
-
-    // Wire up remove
-    block.querySelector(`[data-remove="${id}"]`).addEventListener('click', () => {
-      block.remove();
-    });
-
-    // Live update the designation name shown in the header
-    const desigInput = block.querySelector(`[data-desig-input="${id}"]`);
-    const display = block.querySelector(`[data-display="${id}"]`);
-    desigInput.addEventListener('input', () => {
-      display.textContent = desigInput.value.trim() || 'New designation';
-    });
-  }
-
-  document.getElementById('add-desig-btn').addEventListener('click', addDesignationBlock);
-
-  // Start with one block already open
-  addDesignationBlock();
-
   // Google Apps Script Web App URL — receives submissions and writes them to the Sheet
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxaPD4ck4GSKtJzndAdxFRfWDz0uisUcwn9GoPxJgphn0y8AjCOoYebx3OJgn17ddRK/exec';
 
@@ -510,25 +265,11 @@
 
     const data = {
       teamName: document.getElementById('teamName').value,
-      teamSize: document.getElementById('teamSize').value,
-      designations: [],
-      fullTeamKra: document.getElementById('fullTeamKra').value,
-      fullTeamComment: document.getElementById('fullTeamComment').value
+      name: document.getElementById('empName').value,
+      designation: document.getElementById('designation').value,
+      quarterlyKra: document.getElementById('quarterlyKra').value,
+      quarterlyComment: document.getElementById('quarterlyComment').value
     };
-
-    document.querySelectorAll('.desig-block').forEach(block => {
-      const textareas = block.querySelectorAll('textarea');
-      data.designations.push({
-        name: block.querySelector('[data-name-input]').value,
-        designation: block.querySelector('[data-desig-input]').value,
-        oneMonthKra: textareas[0].value,
-        oneMonthComment: textareas[1].value,
-        quarterlyKra: textareas[2].value,
-        quarterlyComment: textareas[3].value,
-        oneYearKra: textareas[4].value,
-        oneYearComment: textareas[5].value
-      });
-    });
 
     const banner = document.getElementById('status-banner');
     banner.style.display = 'block';
@@ -551,9 +292,6 @@
         if (result.status === 'success') {
           banner.textContent = '✓ Submitted successfully! Your response has been recorded.';
           document.getElementById('kra-form').reset();
-          document.getElementById('desig-container').innerHTML = '';
-          desigCount = 0;
-          addDesignationBlock();
         } else {
           banner.style.borderColor = 'var(--danger)';
           banner.style.color = 'var(--danger)';
