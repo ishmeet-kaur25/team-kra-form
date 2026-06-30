@@ -133,6 +133,19 @@
   }
   .field:last-child { margin-bottom: 0; }
 
+  .field-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .field-row .field {
+    flex: 1;
+    margin-bottom: 0;
+  }
+  @media (max-width: 480px) {
+    .field-row { flex-direction: column; gap: 16px; }
+  }
+
   /* Designation block */
   .desig-block {
     background: var(--bg-panel);
@@ -410,9 +423,15 @@
         </div>
       </div>
       <div class="desig-body" data-body="${id}">
-        <div class="field">
-          <label>Designation</label>
-          <input type="text" placeholder="e.g. Delivery Manager" data-desig-input="${id}">
+        <div class="field-row">
+          <div class="field">
+            <label>Name</label>
+            <input type="text" placeholder="e.g. Priya Sharma" data-name-input="${id}">
+          </div>
+          <div class="field">
+            <label>Designation</label>
+            <input type="text" placeholder="e.g. Delivery Manager" data-desig-input="${id}">
+          </div>
         </div>
 
         <div class="kra-group">
@@ -500,6 +519,7 @@
     document.querySelectorAll('.desig-block').forEach(block => {
       const textareas = block.querySelectorAll('textarea');
       data.designations.push({
+        name: block.querySelector('[data-name-input]').value,
         designation: block.querySelector('[data-desig-input]').value,
         oneMonthKra: textareas[0].value,
         oneMonthComment: textareas[1].value,
