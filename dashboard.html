@@ -19,6 +19,9 @@
     --text-dim: #67768a;
     --border: #d8dee8;
     --danger: #d6294a;
+    --green: #0e9e6e;
+    --green-light: rgba(14,158,110,0.08);
+    --red-light: rgba(214,41,74,0.08);
   }
 
   * { box-sizing: border-box; }
@@ -36,15 +39,9 @@
     padding: 32px 16px 80px;
   }
 
-  .wrap {
-    max-width: 800px;
-    margin: 0 auto;
-  }
+  .wrap { max-width: 960px; margin: 0 auto; }
 
-  header {
-    text-align: center;
-    margin-bottom: 32px;
-  }
+  header { text-align: center; margin-bottom: 32px; }
 
   h1 {
     font-family: 'Rajdhani', sans-serif;
@@ -55,10 +52,7 @@
     color: var(--cyan);
   }
 
-  .sub {
-    color: var(--text-dim);
-    font-size: 13px;
-  }
+  .sub { color: var(--text-dim); font-size: 13px; }
 
   .card {
     background: var(--bg-panel);
@@ -104,11 +98,7 @@
     padding: 24px 0;
   }
 
-  .emp-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .emp-list { display: flex; flex-direction: column; gap: 10px; }
 
   .emp-card {
     background: var(--bg-panel);
@@ -127,11 +117,7 @@
     background: var(--bg-panel-2);
   }
 
-  .emp-head-left {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
+  .emp-head-left { display: flex; flex-direction: column; gap: 2px; }
 
   .emp-name {
     font-family: 'Rajdhani', sans-serif;
@@ -140,16 +126,9 @@
     color: var(--text);
   }
 
-  .emp-desig {
-    font-size: 12px;
-    color: var(--text-dim);
-  }
+  .emp-desig { font-size: 12px; color: var(--text-dim); }
 
-  .emp-arrow {
-    color: var(--cyan);
-    font-size: 14px;
-    transition: transform 0.15s;
-  }
+  .emp-arrow { color: var(--cyan); font-size: 14px; transition: transform 0.15s; }
   .emp-arrow.open { transform: rotate(180deg); }
 
   .emp-body {
@@ -159,11 +138,7 @@
   }
   .emp-body.open { display: block; }
 
-  .emp-meta {
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-bottom: 16px;
-  }
+  .emp-meta { font-size: 12px; color: var(--text-dim); margin-bottom: 16px; }
 
   .table-title {
     font-family: 'Rajdhani', sans-serif;
@@ -174,14 +149,15 @@
     text-transform: uppercase;
     margin: 0 0 8px;
   }
+  .table-title + .table-title,
+  .kpi-table + .table-title { margin-top: 20px; }
 
   .kpi-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 18px;
+    margin-bottom: 8px;
     font-size: 13px;
   }
-  .kpi-table:last-child { margin-bottom: 0; }
   .kpi-table th, .kpi-table td {
     border: 1px solid var(--border);
     padding: 8px 10px;
@@ -203,11 +179,97 @@
     font-weight: 600;
     color: var(--text);
     white-space: nowrap;
-    width: 60px;
+    width: 50px;
   }
-  .kpi-table td.empty-cell {
-    color: #a3afc0;
+  .kpi-table td.empty-cell { color: #a3afc0; }
+
+  /* Accept / Reject cell */
+  .decision-cell { min-width: 200px; }
+
+  .btn-group { display: flex; gap: 6px; margin-bottom: 6px; }
+
+  .btn-accept, .btn-reject {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
   }
+  .btn-accept {
+    background: var(--green);
+    color: #fff;
+  }
+  .btn-reject {
+    background: var(--danger);
+    color: #fff;
+  }
+  .btn-accept:hover, .btn-reject:hover { opacity: 0.85; }
+  .btn-accept:active, .btn-reject:active { transform: scale(0.97); }
+  .btn-accept:disabled, .btn-reject:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-accept.active {
+    outline: 2px solid #065c40;
+    outline-offset: 1px;
+  }
+  .btn-reject.active {
+    outline: 2px solid #8b0a23;
+    outline-offset: 1px;
+  }
+
+  .mgr-comment-input {
+    width: 100%;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 5px 7px;
+    outline: none;
+    resize: vertical;
+    min-height: 32px;
+    color: var(--text);
+    background: #fbfcfe;
+  }
+  .mgr-comment-input:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 2px rgba(10,143,168,0.1);
+  }
+
+  .save-btn {
+    margin-top: 6px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--cyan);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .save-btn:hover { opacity: 0.85; }
+  .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .decision-status {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+  }
+  .decision-status.accepted { color: var(--green); }
+  .decision-status.rejected { color: var(--danger); }
+  .decision-status.saving { color: var(--text-dim); }
+
+  tr.row-accepted { background: var(--green-light) !important; }
+  tr.row-rejected { background: var(--red-light) !important; }
 </style>
 </head>
 <body>
@@ -252,10 +314,7 @@
 
   function escapeHtml(str) {
     if (str === undefined || str === null) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
   function cellOrDash(val) {
@@ -282,16 +341,148 @@
       });
   }
 
+  // Build one decision cell (Accept/Reject + comment + Save)
+  function buildDecisionCell(row, field) {
+    const existingStatus = (row[field + '_status'] || '').trim();
+    const existingComment = (row[field + '_mgrComment'] || '').trim();
+
+    const td = document.createElement('td');
+    td.className = 'decision-cell';
+
+    const btnGroup = document.createElement('div');
+    btnGroup.className = 'btn-group';
+
+    const btnAccept = document.createElement('button');
+    btnAccept.className = 'btn-accept' + (existingStatus === 'Accepted' ? ' active' : '');
+    btnAccept.textContent = '✓ Accept';
+
+    const btnReject = document.createElement('button');
+    btnReject.className = 'btn-reject' + (existingStatus === 'Rejected' ? ' active' : '');
+    btnReject.textContent = '✗ Reject';
+
+    btnGroup.appendChild(btnAccept);
+    btnGroup.appendChild(btnReject);
+
+    const commentInput = document.createElement('textarea');
+    commentInput.className = 'mgr-comment-input';
+    commentInput.placeholder = 'Manager comment...';
+    commentInput.value = existingComment;
+    commentInput.rows = 1;
+
+    const saveBtn = document.createElement('button');
+    saveBtn.className = 'save-btn';
+    saveBtn.textContent = 'Save';
+
+    const statusEl = document.createElement('div');
+    statusEl.className = 'decision-status';
+    if (existingStatus === 'Accepted') {
+      statusEl.classList.add('accepted');
+      statusEl.textContent = '✓ Accepted';
+    } else if (existingStatus === 'Rejected') {
+      statusEl.classList.add('rejected');
+      statusEl.textContent = '✗ Rejected';
+    }
+
+    let currentStatus = existingStatus;
+
+    btnAccept.addEventListener('click', () => {
+      currentStatus = 'Accepted';
+      btnAccept.classList.add('active');
+      btnReject.classList.remove('active');
+    });
+
+    btnReject.addEventListener('click', () => {
+      currentStatus = 'Rejected';
+      btnReject.classList.add('active');
+      btnAccept.classList.remove('active');
+    });
+
+    saveBtn.addEventListener('click', () => {
+      if (!currentStatus) {
+        statusEl.className = 'decision-status saving';
+        statusEl.textContent = 'Please choose Accept or Reject first.';
+        return;
+      }
+
+      saveBtn.disabled = true;
+      btnAccept.disabled = true;
+      btnReject.disabled = true;
+      statusEl.className = 'decision-status saving';
+      statusEl.textContent = 'Saving...';
+
+      const payload = {
+        action: 'updateDecision',
+        rowId: row.rowId,
+        field: field,
+        status: currentStatus,
+        mgrComment: commentInput.value
+      };
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      })
+        .then(res => res.json())
+        .then(result => {
+          saveBtn.disabled = false;
+          btnAccept.disabled = false;
+          btnReject.disabled = false;
+          if (result.status === 'success') {
+            statusEl.className = 'decision-status ' + (currentStatus === 'Accepted' ? 'accepted' : 'rejected');
+            statusEl.textContent = currentStatus === 'Accepted' ? '✓ Accepted' : '✗ Rejected';
+            // highlight the row
+            const tr = td.closest('tr');
+            if (tr) {
+              tr.classList.remove('row-accepted', 'row-rejected');
+              tr.classList.add(currentStatus === 'Accepted' ? 'row-accepted' : 'row-rejected');
+            }
+            // update local data
+            row[field + '_status'] = currentStatus;
+            row[field + '_mgrComment'] = commentInput.value;
+          } else {
+            statusEl.className = 'decision-status rejected';
+            statusEl.textContent = 'Error: ' + (result.message || 'Could not save.');
+          }
+        })
+        .catch(() => {
+          saveBtn.disabled = false;
+          btnAccept.disabled = false;
+          btnReject.disabled = false;
+          statusEl.className = 'decision-status rejected';
+          statusEl.textContent = 'Network error. Please try again.';
+        });
+    });
+
+    td.appendChild(btnGroup);
+    td.appendChild(commentInput);
+    td.appendChild(saveBtn);
+    td.appendChild(statusEl);
+
+    return td;
+  }
+
+  function buildRow(row, quarter, kpiField, commentField) {
+    const tr = document.createElement('tr');
+
+    const existingStatus = (row[kpiField + '_status'] || '').trim();
+    if (existingStatus === 'Accepted') tr.classList.add('row-accepted');
+    if (existingStatus === 'Rejected') tr.classList.add('row-rejected');
+
+    tr.innerHTML = `
+      <td class="row-label">${quarter}</td>
+      <td>${cellOrDash(row[kpiField])}</td>
+      <td>${cellOrDash(row[commentField])}</td>
+    `;
+
+    tr.appendChild(buildDecisionCell(row, kpiField));
+    return tr;
+  }
+
   function renderForSelectedTeam() {
     const team = teamFilter.value;
-    if (!team) {
-      resultsEl.innerHTML = '';
-      return;
-    }
-    if (!dataLoaded) {
-      resultsEl.innerHTML = '<div class="loading">Loading data...</div>';
-      return;
-    }
+    if (!team) { resultsEl.innerHTML = ''; return; }
+    if (!dataLoaded) { resultsEl.innerHTML = '<div class="loading">Loading data...</div>'; return; }
 
     const teamEntries = allData.filter(row => (row.teamName || '').trim() === team);
 
@@ -307,42 +498,63 @@
       const empCard = document.createElement('div');
       empCard.className = 'emp-card';
 
-      empCard.innerHTML = `
-        <div class="emp-head" data-toggle="${idx}">
-          <div class="emp-head-left">
-            <div class="emp-name">${escapeHtml(row.name || 'Unnamed')}</div>
-            <div class="emp-desig">${escapeHtml(row.designation || '')}</div>
-          </div>
-          <div class="emp-arrow" data-arrow="${idx}">&#9660;</div>
+      // Header
+      const head = document.createElement('div');
+      head.className = 'emp-head';
+      head.innerHTML = `
+        <div class="emp-head-left">
+          <div class="emp-name">${escapeHtml(row.name || 'Unnamed')}</div>
+          <div class="emp-desig">${escapeHtml(row.designation || '')}</div>
         </div>
-        <div class="emp-body" data-body="${idx}">
-          <div class="emp-meta">Submitted: ${escapeHtml(row.timestamp || '')}</div>
-
-          <div class="table-title">KPI Tracking</div>
-          <table class="kpi-table">
-            <tr><th>Quarter</th><th>Accounts / Tasks / KPI</th><th>Comment</th></tr>
-            <tr><td class="row-label">Q1</td><td>${cellOrDash(row.kpiQ1)}</td><td>${cellOrDash(row.kpiQ1Comment)}</td></tr>
-            <tr><td class="row-label">Q2</td><td>${cellOrDash(row.kpiQ2)}</td><td>${cellOrDash(row.kpiQ2Comment)}</td></tr>
-            <tr><td class="row-label">Q3</td><td>${cellOrDash(row.kpiQ3)}</td><td>${cellOrDash(row.kpiQ3Comment)}</td></tr>
-            <tr><td class="row-label">Q4</td><td>${cellOrDash(row.kpiQ4)}</td><td>${cellOrDash(row.kpiQ4Comment)}</td></tr>
-          </table>
-
-          <div class="table-title">Commitment &amp; Development</div>
-          <table class="kpi-table">
-            <tr><th>Quarter</th><th>Initiative</th><th>Comment</th></tr>
-            <tr><td class="row-label">Q1</td><td>${cellOrDash(row.initQ1)}</td><td>${cellOrDash(row.initQ1Comment)}</td></tr>
-            <tr><td class="row-label">Q2</td><td>${cellOrDash(row.initQ2)}</td><td>${cellOrDash(row.initQ2Comment)}</td></tr>
-            <tr><td class="row-label">Q3</td><td>${cellOrDash(row.initQ3)}</td><td>${cellOrDash(row.initQ3Comment)}</td></tr>
-            <tr><td class="row-label">Q4</td><td>${cellOrDash(row.initQ4)}</td><td>${cellOrDash(row.initQ4Comment)}</td></tr>
-          </table>
-        </div>
+        <div class="emp-arrow" id="arrow-${idx}">&#9660;</div>
       `;
 
+      // Body
+      const body = document.createElement('div');
+      body.className = 'emp-body';
+
+      const meta = document.createElement('div');
+      meta.className = 'emp-meta';
+      meta.textContent = 'Submitted: ' + (row.timestamp || '');
+      body.appendChild(meta);
+
+      // KPI table
+      const kpiTitle = document.createElement('div');
+      kpiTitle.className = 'table-title';
+      kpiTitle.textContent = 'KPI Tracking';
+      body.appendChild(kpiTitle);
+
+      const kpiTable = document.createElement('table');
+      kpiTable.className = 'kpi-table';
+      kpiTable.innerHTML = `<tr><th>Quarter</th><th>Accounts / Tasks / KPI</th><th>Comment</th><th>Manager Decision</th></tr>`;
+      kpiTable.appendChild(buildRow(row, 'Q1', 'kpiQ1', 'kpiQ1Comment'));
+      kpiTable.appendChild(buildRow(row, 'Q2', 'kpiQ2', 'kpiQ2Comment'));
+      kpiTable.appendChild(buildRow(row, 'Q3', 'kpiQ3', 'kpiQ3Comment'));
+      kpiTable.appendChild(buildRow(row, 'Q4', 'kpiQ4', 'kpiQ4Comment'));
+      body.appendChild(kpiTable);
+
+      // Init table
+      const initTitle = document.createElement('div');
+      initTitle.className = 'table-title';
+      initTitle.style.marginTop = '20px';
+      initTitle.textContent = 'Commitment & Development';
+      body.appendChild(initTitle);
+
+      const initTable = document.createElement('table');
+      initTable.className = 'kpi-table';
+      initTable.innerHTML = `<tr><th>Quarter</th><th>Initiative</th><th>Comment</th><th>Manager Decision</th></tr>`;
+      initTable.appendChild(buildRow(row, 'Q1', 'initQ1', 'initQ1Comment'));
+      initTable.appendChild(buildRow(row, 'Q2', 'initQ2', 'initQ2Comment'));
+      initTable.appendChild(buildRow(row, 'Q3', 'initQ3', 'initQ3Comment'));
+      initTable.appendChild(buildRow(row, 'Q4', 'initQ4', 'initQ4Comment'));
+      body.appendChild(initTable);
+
+      empCard.appendChild(head);
+      empCard.appendChild(body);
       list.appendChild(empCard);
 
-      const head = empCard.querySelector(`[data-toggle="${idx}"]`);
-      const body = empCard.querySelector(`[data-body="${idx}"]`);
-      const arrow = empCard.querySelector(`[data-arrow="${idx}"]`);
+      // Toggle
+      const arrow = head.querySelector(`#arrow-${idx}`);
       head.addEventListener('click', () => {
         body.classList.toggle('open');
         arrow.classList.toggle('open');
@@ -354,7 +566,6 @@
   }
 
   teamFilter.addEventListener('change', renderForSelectedTeam);
-
   loadData();
 </script>
 
